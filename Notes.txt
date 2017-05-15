@@ -1,0 +1,8 @@
+Things to decide:
+
+1) What kind of screenshots? 
+	- personal 600/600 or lifetime tickets?
+2) How will they be collected?
+	a) Each member posts them to Discord channel
+	b) A single member runs a macro to capture required screenshots
+	 
