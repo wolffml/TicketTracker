@@ -1,24 +1,17 @@
 package site.swgoh.TicketTracker;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import com.microsoft.projectoxford.vision.rest.VisionServiceException;
-
+import site.swgoh.TicketTracker.helper.DBWriteHelper;
 import site.swgoh.TicketTracker.helper.FileHelper;
 import site.swgoh.TicketTracker.helper.ImageHelper;
 import site.swgoh.TicketTracker.helper.OCRHelper;
 import site.swgoh.TicketTracker.lists.DailyTrackingList;
-import site.swgoh.TicketTracker.lists.OCRRecordList;
 
 /**
  * Hello world!
@@ -53,7 +46,21 @@ public class App
         //Process those Cropped Images through the OCR Software
         DailyTrackingList trackList = new DailyTrackingList();
         OCRHelper.processImageFiles(croppedDirString, trackList);
-       
+        logger.info(trackList.toString());
+        
+        try {
+			trackList.writeList(dailyDirString + "output.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        String writeDB = bundle.getString("activites.db.write");
+        if (writeDB.equals("true")){
+        	DBWriteHelper.writeToDB(trackList);
+        }
+        
+        
         //Create the cropped image files
         logger.debug("Program finished executing.");
     }

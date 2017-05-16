@@ -8,7 +8,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.IOUtils;
@@ -20,7 +19,6 @@ import com.microsoft.projectoxford.vision.contract.Line;
 import com.microsoft.projectoxford.vision.contract.OCR;
 import com.microsoft.projectoxford.vision.contract.Region;
 import com.microsoft.projectoxford.vision.contract.Word;
-import com.microsoft.projectoxford.vision.rest.VisionServiceException;
 
 import site.swgoh.TicketTracker.beans.ResultRecord;
 import site.swgoh.TicketTracker.lists.DailyTrackingList;
@@ -30,10 +28,11 @@ public class OCRHelper {
 	
 	private static Logger logger = Logger.getLogger(OCRHelper.class);
 	private static final ResourceBundle bundle = ResourceBundle.getBundle("app");
+	private static final ResourceBundle bundle_sec = ResourceBundle.getBundle("secrets");
 	
 	//String for the OCR Call
 	private static final String baseURI = bundle.getString("ocr.uri");
-	private static final String apiKey = bundle.getString("ocr.apikey");
+	private static final String apiKey = bundle_sec.getString("ocr.apikey");
 	private static final String lang = bundle.getString("ocr.lang");
 	
 	
@@ -61,7 +60,6 @@ public class OCRHelper {
 				e.printStackTrace();
 			}
 	    	//ArrayList<String> stringList = new ArrayList<String>();
-	    	
 	    }
 	
 	

@@ -1,3 +1,20 @@
+TODO: Add DB
+TODO: figure out how to make this Lambda function or something like this.
+
+
+DNS: swgohtickets.cgspl4zpzxnu.us-east-1.rds.amazonaws.com
+DatabaseName: swgohticketdb
+Port 3306
+
+DB ID: swgoh_tickets
+User: swgoh_user
+
+96]YnZn$MN>]wLt:
+
+
+
+
+For the Make SWGOH Great Again Team:
 Things to decide:
 
 1) What kind of screenshots? 

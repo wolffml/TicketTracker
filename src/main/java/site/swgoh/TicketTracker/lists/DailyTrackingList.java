@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import site.swgoh.TicketTracker.beans.MemberData;
-import site.swgoh.TicketTracker.beans.ResultRecord;
 
 public class DailyTrackingList extends ArrayList<MemberData> {
 	
@@ -30,6 +28,11 @@ public class DailyTrackingList extends ArrayList<MemberData> {
 		//Here we have the individual File's contents, need to create MemberData elements and add them to the arraylist
 		int[] names = new int[5];
 		int[] scores = new int[5];
+		for (int i=0; i<5; i++) {
+			names[i] = fileResultsList.findElement(i+1,"85");
+			scores[i] = fileResultsList.findElement(i+1, "Tickets Produced:");
+		}
+		/*
 		names[0] = fileResultsList.findElement(1,"85");
 		names[1] = fileResultsList.findElement(2,"85");
 		names[2] = fileResultsList.findElement(3,"85");
@@ -40,13 +43,28 @@ public class DailyTrackingList extends ArrayList<MemberData> {
 		scores[2] = fileResultsList.findElement(3, "Tickets Produced:");
 		scores[3] = fileResultsList.findElement(4, "Tickets Produced:");
 		scores[4] = fileResultsList.findElement(5, "Tickets Produced:");
-		
+		*/
+		//TODO: fix this in cases where there are not all 5 members present on the screenshot
 		for (int i=0; i<5; i++){
-			MemberData md = new MemberData(fileResultsList.get(names[i]-1).getStringData(),
-											fileResultsList.get(scores[i]+1).getStringData(), "");
+			MemberData md;
+			if (names[i] == -1 || scores[i] == -1){
+				md = new MemberData("","","");
+			} else {
+				md = new MemberData(fileResultsList.get(names[i]-1).getStringData(),
+						fileResultsList.get(scores[i]+1).getStringData(), fileResultsList.getPath());
+			}
 			this.add(md);
 		}
 		
+	}
+	@Override
+	public String toString(){
+		String strReturn = "";
+		for (MemberData md: this){
+			strReturn += md.toString() + "\n";
+		}
+		
+		return strReturn;
 	}
 
 }

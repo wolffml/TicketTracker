@@ -1,5 +1,6 @@
 package site.swgoh.TicketTracker.beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MemberData {
@@ -27,7 +28,8 @@ public class MemberData {
 	
 	@Override
 	public String toString(){
-		return memberName + " : " + tickets;
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd hh:mm:ss");
+		return getMemberName() + "," + getTickets() + "," + sdf.format(getDate()) + "," + getSourceFile();
 	}
 
 	public String getTickets() {
