@@ -1,9 +1,9 @@
 package site.swgoh.hibernate.beans;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 @Entity
 @Table(name="LIFETIME_TICKETS")
@@ -32,7 +35,7 @@ public class LifetimeTickets {
 	private Long tickets;
 	
 	@Column (name="M_DATE")
-	private Date mDate;
+	private Timestamp mDate;
 	
 	@Column (name="SOURCE_FILE")
 	private String sourceFile;
@@ -44,7 +47,7 @@ public class LifetimeTickets {
 		this.memberName = memberName;
 		this.guild = g;
 		this.tickets = tickets;
-		this.mDate = new java.sql.Date(l);
+		this.mDate = new Timestamp(System.currentTimeMillis());
 	}
 	
 	
@@ -73,17 +76,31 @@ public class LifetimeTickets {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	public Date getmDate() {
-		return mDate;
-	}
-	public void setmDate(Date mDate) {
-		this.mDate = mDate;
-	}
+	
 	public String getSourceFile() {
 		return sourceFile;
 	}
 	public void setSourceFile(String sourceFile) {
 		this.sourceFile = sourceFile;
+	}
+	public Timestamp getmDate() {
+		return mDate;
+	}
+	public void setmDate(Timestamp mDate) {
+		this.mDate = mDate;
+	}
+	public static LifetimeTickets getLT(String memberName, Session session) {
+		String hql = "FROM LifetimeTickets t WHERE t.memberName = :membername ORDER BY id";
+    	Query query = session.createQuery(hql)
+    						.setParameter("membername",memberName);
+    	List results = query.list();
+    	
+    	if (results.isEmpty()){
+    		return null;
+    	}else {
+    		return (LifetimeTickets)results.get(results.size()-1);
+    	}
+		
 	}
 	
 	

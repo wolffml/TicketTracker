@@ -37,6 +37,9 @@
 		 -->
 		<mapping class="site.swgoh.hibernate.beans.Guild" />
 		<mapping class="site.swgoh.hibernate.beans.LifetimeTickets" />
+		<mapping class="site.swgoh.hibernate.beans.DataRun" />
+		<mapping class="site.swgoh.hibernate.beans.TicketRun" />
+		
 		<!--  
         <mapping resource="site/swgoh/hibernate/beans/Guild.hbm.xml"/>
 		 -->
