@@ -21,7 +21,7 @@ public class DBActionsMain {
 			
 			//For other days, you need to specify a particular DataRun to copy the data to LifetimeTickets
 			//TODO: write the code to take a particular run and put it in the lifetime
-			DBWriteHelper.commitRun(8L);
+			DBWriteHelper.commitRun(12L);
 			
 			//Show who is short given a particular data run
 			//DBWriteHelper.showShort(7L);
