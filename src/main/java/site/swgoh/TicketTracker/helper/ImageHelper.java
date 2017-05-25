@@ -45,6 +45,7 @@ public class ImageHelper {
 	            BufferedImage copyOfImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 	            Graphics g = copyOfImage.createGraphics();
 	            g.drawImage(img, 0, 0, null);
+	            g.dispose();
 	            //Now save the Image file in the destination folder
 	            String outputFileString = croppedDirString + outputFilePrefix + sourceFile.getName();
 	            File outputFile = new File(outputFileString);

@@ -57,16 +57,20 @@ public class ProcessingPanel extends CalcPanel {
 		runImageOCRButton = new JButton(getResourseString("runImageOCR.button"));
 		runImageOCRButton.setMnemonic(getResourseString("runImageOCR.button.mnemonic").charAt(0));
 		runImageOCRButton.addActionListener(buttonHandler);
-		addComponent(runImageProcessingButton, gridRow, 1, 1, 2);
-		addComponent(runImageOCRButton, gridRow, 3, 1, 2);
-		gridRow++;
+		runDBUpdateButton = new JButton(getResourseString("runDBUpdate.button"));
+		runDBUpdateButton.setMnemonic(getResourseString("runDBUpdate.button.mnemonic").charAt(0));
+		runDBUpdateButton.addActionListener(buttonHandler);
+		addComponent(runImageProcessingButton, gridRow, 0, 1, 2);
+		addComponent(runImageOCRButton, gridRow, 2, 1, 2);
+		addComponent(runDBUpdateButton, gridRow, 4, 1, 2);
+		gridRow=gridRow + 3;;
 		
 		//Answer Panel
 		infoPanel = new JPanel();
 		infoTextArea = new JTextArea("", 10, 30);
 		infoTextArea.setEditable(false);
 		infoPanel.add(new JScrollPane(infoTextArea));
-		addComponent(infoPanel, gridRow, 0, 5, 5);
+		addComponent(infoPanel, gridRow, 0, 5, 10);
 	}
 	
 	
@@ -78,9 +82,8 @@ public class ProcessingPanel extends CalcPanel {
 			//See which button was pressed
 			if (event.getSource() == runImageProcessingButton) {
 				//Need to call the Shape dependent implemenation of the calculate function
-				logger.debug("Calculate Button Pressed");
-				//String answer = shape.calculateVolume();
-				//answerTextArea.append(answer); 
+				logger.info("Process Image Files Button Pressed");
+				
 
 			} else if (event.getSource() == runImageOCRButton) {
 				// Clear things

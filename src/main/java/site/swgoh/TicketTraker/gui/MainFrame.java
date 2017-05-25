@@ -27,9 +27,10 @@ public class MainFrame extends JFrame {
 	public static final ResourceBundle bundle = ResourceBundle.getBundle("site.swgoh.TicketTraker.gui.settings");
 	
 	private JTabbedPane tabbedPane;
-	private CalcPanel[] panels = { 	new CalcPanel("Settings","Program Settings","settings"), 
-									new ProcessingPanel("Processing","Image Processing","processing"),
-									new CalcPanel("DB Actions", "Customer data entry", "db")};
+	private CalcPanel[] panels = { 	new ProcessingPanel("Processing","Image Processing","processing"),
+									new CalcPanel("DB Actions", "Customer data entry", "db"),
+									new CalcPanel("Settings","Program Settings","settings")
+								};
 	
 	
 	public MainFrame(){
