@@ -18,8 +18,10 @@ public class APITest {
 		
 		logger.info("Starting APITest main");
 		
-		DBWriteHelper.update30K("5/17/2017","5/18/2017");
+		//FileHelper.getDateFromFile("Screenshot_2017-08-29-16-45-45776.png");
+		FileHelper.moveFiles( bundle.getString("rootdir"), "*.png");
 		
+		//DBWriteHelper.update30K("5/17/2017","5/18/2017");
 		
 		//String rootdir = bundle.getString("rootdir");
 		//FileHelper.waitForFiles(rootdir);

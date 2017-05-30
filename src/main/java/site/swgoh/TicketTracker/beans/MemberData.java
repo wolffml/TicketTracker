@@ -3,6 +3,8 @@ package site.swgoh.TicketTracker.beans;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import site.swgoh.TicketTracker.helper.FileHelper;
+
 public class MemberData {
 	private String tickets;
 	private String memberName;
@@ -16,7 +18,7 @@ public class MemberData {
 		this.tickets = tickets;
 		this.memberName = memberName;
 		this.sourceFile = sourceFile;
-		date = new Date();
+		date = FileHelper.getDateFromFileD(sourceFile);
 	}
 	
 	public String getMemberName() {

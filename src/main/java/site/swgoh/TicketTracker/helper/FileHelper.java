@@ -13,6 +13,7 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,15 +57,25 @@ public class FileHelper {
 		
 	}
 	
-	public static void moveFiles(String sourceDir, String destDir, String glob) {
-		logger.debug("Moving files from: " + sourceDir + " to: " + destDir);
+	public static void moveFiles(String sourceDir, String glob) {
+		logger.debug("Moving files from: " + sourceDir);
 		Path sourceDirPath = Paths.get(sourceDir);
-    	Path destDirPath = Paths.get(destDir);
+    	
     	
     	DirectoryStream<Path> directoryStream;
 		try {
 			directoryStream = Files.newDirectoryStream(sourceDirPath, glob);
 			for (Path path : directoryStream) {
+				logger.info(path.getFileName().toString());
+				String destDir = FileHelper.getDateFromFile(path.getFileName().toString());
+				logger.info("dest dir from filename: " + destDir);
+				
+				String fullDestDir = sourceDir + "/" + destDir;
+				logger.info("Full Dest dir: " + fullDestDir);
+				
+				mkDir(fullDestDir);
+				Path destDirPath = Paths.get(fullDestDir);
+				
 	            logger.debug("copying " + path.toString());
 	            Path d2 = destDirPath.resolve(path.getFileName());
 	            logger.debug("destination File=" + d2);
@@ -75,9 +86,6 @@ public class FileHelper {
 		}
 	}
 	
-	public static void moveFiles(String sourceDir, String destDir) {
-		moveFiles(sourceDir, destDir, "*.*");
-	}
 	
 	public static String mkDailyDir(String rootDir){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,7 +109,7 @@ public class FileHelper {
     	logger.debug("CreateDir status: " + mkDirSuccess);
 	}
 
-	public static void moveToAmazon(String sourceDir, String dailyDirString, String glob) {
+	public static void moveToAmazon(String sourceDir, String glob) {
 		logger.debug("Moving files from: " + sourceDir + " to Amazon.");
 		Path sourceDirPath = Paths.get(sourceDir);
     	
@@ -109,7 +117,7 @@ public class FileHelper {
 		try {
 			directoryStream = Files.newDirectoryStream(sourceDirPath, glob);
 			for (Path path : directoryStream) {
-				String s3PathString = dailyDirString +"/" + path.getFileName().toString();
+				String s3PathString = getDateFromFile(path.getFileName().toString()) +"/" + path.getFileName().toString();
 				String sourceFileString = path.toAbsolutePath().toString();
 				logger.info("Uploading file: " + sourceFileString + " to S3 object:" + s3PathString);
 				AWSS3Helper.copyFile(s3PathString, sourceFileString);
@@ -124,5 +132,42 @@ public class FileHelper {
 		return sdf.format(new Date());
 	}
    
+	public static String getDateFromFile(String fileName){
+		SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssSSS");
+		SimpleDateFormat sdfOut = new SimpleDateFormat("yyyy-MM-dd");
+		String datePart= fileName.substring(fileName.indexOf("_") + 1, 
+				fileName.indexOf("."));
+		
+		String strReturn = "";
+		
+		try{
+			Date dateFromString = sdfIn.parse(datePart);
+			strReturn = sdfOut.format(dateFromString);
+		} catch(ParseException e){
+			logger.error(e.getMessage());
+		}
+		logger.info("String version:" + strReturn);
+		
+		return strReturn;
+	}
+
+	public static Date getDateFromFileD(String fileName) {
+		SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssSSS");
+		SimpleDateFormat sdfOut = new SimpleDateFormat("yyyy-MM-dd");
+		String datePart= fileName.substring(fileName.indexOf("_") + 1, 
+				fileName.indexOf("."));
+		
+		String strReturn = "";
+		Date dateFromString = new Date();
+		try{
+			dateFromString = sdfIn.parse(datePart);
+			strReturn = sdfOut.format(dateFromString);
+		} catch(ParseException e){
+			logger.error(e.getMessage());
+		}
+		logger.info("String version:" + strReturn);
+		
+		return dateFromString;
+	}
 	
 }

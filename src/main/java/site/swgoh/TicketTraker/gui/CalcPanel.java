@@ -49,6 +49,7 @@ public class CalcPanel extends JPanel {
 		constraints.gridheight = height;
 		layout.setConstraints(component, constraints);
 		add(component);
+		constraints= new GridBagConstraints();
 	}
 	
 	public String getTitle() {

@@ -17,7 +17,7 @@ public class App
 	private static Logger logger = Logger.getLogger(App.class);
 	private static final ResourceBundle bundle = ResourceBundle.getBundle("app");
 	
-	//Get some of the constants for the basie directory info
+	//Get some of the constants for the base directory info
 	private static final String rootDir = bundle.getString("rootdir");
 	
     public static void main( String[] args )
@@ -27,11 +27,12 @@ public class App
     	
     	String uploadToAmazon = bundle.getString("activites.aws.writetobucket");
     	if (uploadToAmazon.toLowerCase().equals("true")){
-    		FileHelper.moveToAmazon(rootDir, FileHelper.getDateFormatString(), "*.png");
+    		FileHelper.moveToAmazon(rootDir, "*.png");
     	}
     	
         //Move the screenshot files from the root directory to the created daily folder
-        FileHelper.moveFiles(rootDir, dailyDirString, "*.png");
+        //FileHelper.moveFiles(rootDir, dailyDirString, "*.png");
+        FileHelper.moveFiles(rootDir, "*.png");
         
         //Create the Cropped Images
         String croppedDirString = ImageHelper.cropImages(dailyDirString);
