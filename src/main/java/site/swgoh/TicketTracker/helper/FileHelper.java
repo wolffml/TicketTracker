@@ -154,9 +154,9 @@ public class FileHelper {
 	public static Date getDateFromFileD(String fileName) {
 		SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssSSS");
 		SimpleDateFormat sdfOut = new SimpleDateFormat("yyyy-MM-dd");
-		String datePart= fileName.substring(fileName.indexOf("_") + 1, 
+		String datePart= fileName.substring(fileName.indexOf("shot_") + 5, 
 				fileName.indexOf("."));
-		
+		logger.info("DatePare: " + datePart);
 		String strReturn = "";
 		Date dateFromString = new Date();
 		try{

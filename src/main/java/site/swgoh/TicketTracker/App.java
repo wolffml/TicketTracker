@@ -24,10 +24,12 @@ public class App
     {
     	//Make the Directory for daily screenshots / csv
     	String dailyDirString = FileHelper.mkDailyDir(rootDir);
+    	logger.info(dailyDirString);
+    	//String dailyDirString = rootDir + "\\2017-05-30";
     	
     	String uploadToAmazon = bundle.getString("activites.aws.writetobucket");
     	if (uploadToAmazon.toLowerCase().equals("true")){
-    		FileHelper.moveToAmazon(rootDir, "*.png");
+    		//FileHelper.moveToAmazon(rootDir, "*.png");
     	}
     	
         //Move the screenshot files from the root directory to the created daily folder

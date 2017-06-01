@@ -44,7 +44,7 @@ public class DailyTrackingList extends ArrayList<MemberData> {
 		for (int i=0; i<5; i++){
 			MemberData md;
 			if (names[i] == -1 || scores[i] == -1){
-				md = new MemberData("","","");
+				md = new MemberData("","",fileResultsList.getPath());
 			} else {
 				//Need to make sure that that we don't have an index out of bounds situation
 				if ( fileResultsList.size() > (scores[i] + 1 ) ){
